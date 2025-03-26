@@ -15,6 +15,7 @@ var app = builder.Build();
 app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",
