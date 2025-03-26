@@ -1,0 +1,9 @@
+@model List<dynamic>
+<h2>Your Courses</h2>
+<table>
+    <tr><th>Course Name</th><th>Grade</th></tr>
+    @foreach (var course in Model)
+    {
+        <tr><td>@course.CourseName</td><td>@course.Grade</td></tr>
+    }
+</table>
