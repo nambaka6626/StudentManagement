@@ -1,31 +1,20 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using StudentManagement.Models;
 
-namespace StudentManagement.Controllers;
-
-public class HomeController : Controller
+namespace StudentManagement.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        public IActionResult Index()
+        {
+            ViewBag.IsLoggedIn = HttpContext.Session.GetString("UserId") != null;
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            return View();
+        }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
