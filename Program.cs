@@ -22,3 +22,5 @@ app.MapControllerRoute(
     pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();
+
+app.UseMiddleware<StudentManagement.Middlewares.RoleAuthorizationMiddleware>();

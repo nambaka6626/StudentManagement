@@ -26,6 +26,9 @@ namespace StudentManagement.Data
                 .HasOne(sc => sc.Course)
                 .WithMany()
                 .HasForeignKey(sc => sc.CourseId);
+                
+            modelBuilder.Entity<User>().HasKey(u => u.Id); //  Đặt Id làm khóa chính
+    
         }
     }
 }

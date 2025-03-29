@@ -1,6 +1,47 @@
-<form method="post">
-    <input type="text" name="Username" placeholder="Username" />
-    <input type="password" name="Password" placeholder="Password" />
-    <input type="text" name="FullName" placeholder="Full Name" />
-    <button type="submit">Register</button>
-</form>
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="p-4 shadow rounded bg-white" style="width: 400px;">
+        <h2 class="text-center mb-4">Register</h2>
+
+        <form asp-action="Register" method="post">
+            <div class="mb-3">
+                <label class="form-label">Username:</label>
+                <input type="text" name="username" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password:</label>
+                <input type="password" name="password" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Full Name:</label>
+                <input type="text" name="fullName" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" name="email" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phone Number:</label>
+                <input type="text" name="phoneNumber" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Role:</label>
+                <select name="role" class="form-select">
+                    <option value="Student">Student</option>
+                    <option value="Faculty">Faculty</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+    </div>
+</div>

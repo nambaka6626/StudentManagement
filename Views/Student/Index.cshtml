@@ -1,9 +1,8 @@
-@model List<dynamic>
-<h2>Your Courses</h2>
-<table>
-    <tr><th>Course Name</th><th>Grade</th></tr>
-    @foreach (var course in Model)
-    {
-        <tr><td>@course.CourseName</td><td>@course.Grade</td></tr>
-    }
-</table>
+@{
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<h2>Welcome, Student!</h2>
+<p>You have access to the student panel.</p>
+
+<a href="/Login/Logout">Logout</a>

@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Welcome, @ViewBag.Username</h2>
+<p>Your role: @ViewBag.Role</p>
+
+@if (ViewBag.Role == "Admin")
+{
+    <a href="/Admin">Go to Admin Page</a>
+}
+else if (ViewBag.Role == "Faculty")
+{
+    <a href="/Faculty">Go to Faculty Page</a>
+}
+else
+{
+    <a href="/Student">Go to Student Page</a>
+}
+
+<a href="/Login/Logout">Logout</a>
