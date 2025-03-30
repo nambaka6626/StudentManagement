@@ -4,9 +4,11 @@ namespace StudentManagement.Models
 {
     public class Course
     {
-        public int CourseId { get; set; }  // Khóa chính
-        public string Name { get; set; }  = string.Empty;   // ✅ Đảm bảo có Name
-        public string Description { get; set; } = string.Empty;  // ✅ Đảm bảo có Description
+        public int Id { get; set; }
+
+        [Required]
+        public string CourseName { get; set; } // Đảm bảo rằng tên khóa học không null hoặc rỗng
+
+        public string Description { get; set; }
     }
 }
-

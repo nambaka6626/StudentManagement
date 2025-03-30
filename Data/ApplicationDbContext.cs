@@ -14,7 +14,9 @@ namespace StudentManagement.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<User>().HasKey(u => u.Id);
-    modelBuilder.Entity<Course>().HasKey(c => c.CourseId);
+    modelBuilder.Entity<Course>().HasKey(c => c.Id); // Sửa từ CourseId -> Id
+
+
     modelBuilder.Entity<StudentCourse>().HasKey(sc => sc.Id);
 
     modelBuilder.Entity<StudentCourse>()
@@ -41,11 +43,14 @@ namespace StudentManagement.Data
         }
     );
 
-    // ✅ Thêm khóa học mặc định
     modelBuilder.Entity<Course>().HasData(
-        new Course { CourseId = 1, Name = "Math 101", Description = "Basic Mathematics" },
-        new Course { CourseId = 2, Name = "Physics 101", Description = "Introduction to Physics" }
-    );
+    new Course { Id = 1, CourseName = "Math", Description = "Basic Math" },
+    new Course { Id = 2, CourseName = "Physics", Description = "Intro to Physics" }
+);
+
+
+
+
 }
 
     }
