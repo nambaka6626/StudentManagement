@@ -1,104 +1,52 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using StudentManagement.Data;
-using StudentManagement.Models;
-using System.Linq;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace StudentManagement.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public LoginController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
+        // GET: /Login/Index
         public IActionResult Index()
         {
             return View();
         }
 
+        // POST: /Login/Index
         [HttpPost]
         public IActionResult Index(string username, string password)
         {
-            // 🔍 Debug: In danh sách User trong database
-            var allUsers = _context.Users.ToList();
-            Console.WriteLine("🔍 Danh sách User trong database:");
-            foreach (var u in allUsers)
+            // Ở đây bạn cần xác thực username và password với dữ liệu từ cơ sở dữ liệu.
+            // Ví dụ đơn giản: nếu username và password không rỗng, giả lập login thành công.
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                Console.WriteLine($"User: {u.Username}, Role: {u.Role}");
+                ViewBag.Error = "Username and password must not be empty.";
+                return View();
             }
 
-            // 🛠 Kiểm tra đăng nhập
-            var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
-
-            if (user != null)
+            // Giả lập phân quyền dựa trên username (chỉ để demo)
+            string role = "Student";
+            if (username.ToLower() == "admin")
             {
-                Console.WriteLine($"✅ User found: {user.Username}, Role: {user.Role}");
-
-                // 🛑 BƯỚC 3: Reset Session trước khi đăng nhập
-                HttpContext.Session.Clear();
-
-                // ✅ Lưu thông tin đăng nhập vào session
-                HttpContext.Session.SetString("Username", user.Username);
-                HttpContext.Session.SetString("Role", user.Role);
-
-                // 🔥 Debug: Kiểm tra session sau khi set
-                Console.WriteLine($"🚀 Session Set: {HttpContext.Session.GetString("Username")} - {HttpContext.Session.GetString("Role")}");
-
-                return RedirectToAction("Dashboard");
+                role = "Admin";
+            }
+            else if (username.ToLower() == "faculty")
+            {
+                role = "Faculty";
             }
 
-            ViewBag.Error = "Invalid username or password";
-            return View();
+            // Lưu thông tin đăng nhập vào TempData để chuyển hướng
+            TempData["UserName"] = username;
+            TempData["UserRole"] = role;
+
+            // Chuyển hướng tới trang Dashboard của Login
+            return RedirectToAction("Dashboard");
         }
 
+        // Dashboard hiển thị sau khi đăng nhập thành công
         public IActionResult Dashboard()
         {
-            if (HttpContext.Session.GetString("Username") == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.Username = HttpContext.Session.GetString("Username");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-
+            ViewBag.UserName = TempData["UserName"]?.ToString();
+            ViewBag.UserRole = TempData["UserRole"]?.ToString();
             return View();
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Register(string username, string password, string fullName, string email, string phoneNumber, string role)
-        {
-            var newUser = new User
-            {
-                Username = username,
-                Password = password,
-                FullName = fullName,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                Role = role
-            };
-
-            _context.Users.Add(newUser);
-            _context.SaveChanges();
-
-            // 🛠 Chỉ cho phép đăng nhập sau khi đăng ký
-            return RedirectToAction("Index", "Login");
         }
     }
 }
