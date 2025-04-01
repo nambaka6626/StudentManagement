@@ -1,48 +1,52 @@
-using Microsoft.AspNetCore.Mvc;
-using StudentManagement.Models;
-using StudentManagement.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace StudentManagement.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IUserRepository _userRepository;
-
-        public LoginController(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
+        // GET: /Login/Index
         public IActionResult Index()
         {
             return View();
         }
 
+        // POST: /Login/Index
         [HttpPost]
         public IActionResult Index(string username, string password)
         {
-            var user = _userRepository.GetUserByUsername(username);
-            if (user != null && user.Password == password)
+            // Ở đây bạn cần xác thực username và password với dữ liệu từ cơ sở dữ liệu.
+            // Ví dụ đơn giản: nếu username và password không rỗng, giả lập login thành công.
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                HttpContext.Session.SetString("UserId", user.Id.ToString());
-                HttpContext.Session.SetString("Role", user.Role);
-                return RedirectToAction("Index", "Home");
+                ViewBag.Error = "Username and password must not be empty.";
+                return View();
             }
-            ViewBag.Error = "Invalid credentials";
-            return View();
+
+            // Giả lập phân quyền dựa trên username (chỉ để demo)
+            string role = "Student";
+            if (username.ToLower() == "admin")
+            {
+                role = "Admin";
+            }
+            else if (username.ToLower() == "faculty")
+            {
+                role = "Faculty";
+            }
+
+            // Lưu thông tin đăng nhập vào TempData để chuyển hướng
+            TempData["UserName"] = username;
+            TempData["UserRole"] = role;
+
+            // Chuyển hướng tới trang Dashboard của Login
+            return RedirectToAction("Dashboard");
         }
 
-        public IActionResult Register()
+        // Dashboard hiển thị sau khi đăng nhập thành công
+        public IActionResult Dashboard()
         {
+            ViewBag.UserName = TempData["UserName"]?.ToString();
+            ViewBag.UserRole = TempData["UserRole"]?.ToString();
             return View();
-        }
-
-        [HttpPost]
-        public IActionResult Register(User user)
-        {
-            user.Role = "Student";
-            _userRepository.AddUser(user);
-            return RedirectToAction("Index");
         }
     }
 }

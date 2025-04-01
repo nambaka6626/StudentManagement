@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-5">
+    <h2>Dashboard</h2>
+    <p>Chào mừng, @ViewBag.UserName!</p>
+    <p>Vai trò của bạn: <strong>@ViewBag.UserRole</strong></p>
+
+    @if (ViewBag.UserRole == "Admin")
+    {
+    <div>
+        <h3>Admin Panel</h3>
+        <ul>
+            <li><a href="/Admin/ManageUsers">Quản lý người dùng</a></li>
+            <li><a href="/Admin/ManageCourses">Quản lý khóa học</a></li>
+        </ul>
+    </div>
+    }
+    else if (ViewBag.UserRole == "Faculty")
+    {
+    <div>
+        <h3>Faculty Panel</h3>
+        <ul>
+            <li><a href="/Faculty/GradeStudents">Chấm điểm sinh viên</a></li>
+        </ul>
+    </div>
+    }
+    else if (ViewBag.UserRole == "Student")
+    {
+    <div>
+        <h3>Student Panel</h3>
+        <ul>
+            <li><a href="/Student/ViewCourses">Xem khóa học của bạn</a></li>
+            <li><a href="/Student/ViewResults">Xem kết quả học tập</a></li>
+        </ul>
+    </div>
+    }
+</div>

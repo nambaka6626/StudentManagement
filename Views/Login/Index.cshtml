@@ -1,7 +1,24 @@
-<form method="post">
-    <input type="text" name="username" placeholder="Username" />
-    <input type="password" name="password" placeholder="Password" />
-    <button type="submit">Login</button>
-    <p>@ViewBag.Error</p>
-</form>
-<a href="/Login/Register">Register</a>
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="container mt-5">
+    <h2>Đăng nhập</h2>
+    @if(ViewBag.Error != null)
+    {
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+    }
+    <form asp-action="Index" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Tên đăng nhập:</label>
+            <input type="text" class="form-control" id="username" name="username" required />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mật khẩu:</label>
+            <input type="password" class="form-control" id="password" name="password" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+    </form>
+</div>
