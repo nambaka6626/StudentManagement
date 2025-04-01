@@ -7,9 +7,9 @@ namespace StudentManagement.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AppDbContext _context;
 
-        public AdminController(ApplicationDbContext context)
+        public AdminController(AppDbContext context)
         {
             _context = context;
         }

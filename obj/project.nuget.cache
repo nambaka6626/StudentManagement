@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "EgUBGLFpt9EQhG2iXq3gWE6WtjFHMcX93UGglo/R5YbZhh8i3xc+WDP8xg/Z0qLiCtH/g8mDjvm/OrSmDQevIg==",
+  "dgSpecHash": "BBXYnigH8BRRTEuRFBZ2VK5avfxkmVQC+l/eKYY97N3ngmtNwn/DHZGPEy78gha4nd0/6h+nPGV1LyjElDIODA==",
   "success": true,
   "projectFilePath": "D:\\Code-thu-4\\StudentManagement-master (1)\\StudentManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hieunguyen\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\hieunguyen\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\hieunguyen\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\hieunguyen\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\hieunguyen\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\hieunguyen\\.nuget\\packages\\microsoft.build.framework\\17.8.3\\microsoft.build.framework.17.8.3.nupkg.sha512",
