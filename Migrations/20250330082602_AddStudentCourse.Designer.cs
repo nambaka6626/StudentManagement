@@ -10,7 +10,7 @@ using StudentManagement.Data;
 
 namespace StudentManagement.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250330082602_AddStudentCourse")]
     partial class AddStudentCourse
     {

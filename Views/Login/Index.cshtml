@@ -2,23 +2,31 @@
     ViewData["Title"] = "Đăng nhập";
 }
 
-<div class="container mt-5">
-    <h2>Đăng nhập</h2>
-    @if(ViewBag.Error != null)
-    {
-    <div class="alert alert-danger">
-        @ViewBag.Error
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm p-4">
+            <h2 class="text-center">Đăng nhập</h2>
+
+            @if(ViewBag.Error != null)
+            {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+            }
+
+            <form asp-action="Index" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Tên đăng nhập:</label>
+                    <input type="text" class="form-control" id="username" name="username" required />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu:</label>
+                    <input type="password" class="form-control" id="password" name="password" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                <a href="/Register/Index" class="btn btn-secondary w-100 mt-2">Đăng ký</a>
+            </form>
+        </div>
     </div>
-    }
-    <form asp-action="Index" method="post">
-        <div class="mb-3">
-            <label for="username" class="form-label">Tên đăng nhập:</label>
-            <input type="text" class="form-control" id="username" name="username" required />
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Mật khẩu:</label>
-            <input type="password" class="form-control" id="password" name="password" required />
-        </div>
-        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-    </form>
 </div>
+

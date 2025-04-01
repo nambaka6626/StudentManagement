@@ -1,44 +1,72 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentManagement.Factories;
 using StudentManagement.Models;
+using StudentManagement.Data;
+using BCrypt.Net;
 
 namespace StudentManagement.Controllers
 {
-	public class RegisterController : Controller
-	{
-		// GET: /Register/Index
-		public IActionResult Index()
-		{
-			return View();
-		}
+    public class RegisterController : Controller
+    {
+        private readonly AppDbContext _context;
 
-		// POST: /Register/Register
-		[HttpPost]
-		public IActionResult Register(string name, string role)
-		{
-			try
-			{
-				IUser user = UserFactory.CreateUser(role, name);
-				user.Register();
-				TempData["UserName"] = user.Name;
-				TempData["UserRole"] = user.Role;
-				return RedirectToAction("Dashboard");
-			}
-			catch (Exception ex)
-			{
-				ViewBag.Error = ex.Message;
-				return View("Index");
-			}
-		}
+        public RegisterController(AppDbContext context)
+        {
+            _context = context;
+        }
 
+        // GET: /Register/Index
+        public IActionResult Index()
+        {
+            return View();
+        }
 
+        // POST: /Register/Register
+        [HttpPost]
+        public IActionResult Register(string name, string email, string phone, string password, string role)
+        {
+            try
+            {
+                IUser user = UserFactory.CreateUser(role, name);
 
-		public IActionResult Dashboard()
-		{
-			// Lấy thông tin user từ TempData và hiển thị giao diện tương ứng
-			ViewBag.UserName = TempData["UserName"]?.ToString();
-			ViewBag.UserRole = TempData["UserRole"]?.ToString();
-			return View();
-		}
-	}
+                var newUser = new User
+                {
+                    Name = name,
+                    Email = email,
+                    Phone = phone,
+                    Password = BCrypt.HashPassword(password), // Mã hóa mật khẩu
+                    Role = role
+                };
+
+                _context.Users.Add(newUser);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Login");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Index");
+            }
+        }
+
+        public IActionResult Dashboard()
+        {
+            ViewBag.UserName = HttpContext.Session.GetString("UserName");
+            ViewBag.UserRole = HttpContext.Session.GetString("UserRole");
+
+            if (string.IsNullOrEmpty(ViewBag.UserName))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            return View();
+        }
+
+        // Action để xử lý lỗi (dùng cho UseExceptionHandler trong Program.cs)
+        public IActionResult Error()
+        {
+            return View();
+        }
+    }
 }

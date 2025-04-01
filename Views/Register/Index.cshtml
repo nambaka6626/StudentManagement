@@ -1,57 +1,58 @@
 ﻿@{
-    ViewData["Title"] = "Đăng ký tài khoản";
+        ViewData["Title"] = "Đăng ký tài khoản";
 }
 
-<div class="container mt-5">
-    <h2>Đăng ký tài khoản</h2>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <!-- Điều chỉnh độ rộng -->
+        <div class="card shadow-sm p-4">
+            <h2 class="text-center">Đăng ký tài khoản</h2>
 
-    @if(ViewBag.Error != null)
-    {
-    <div class="alert alert-danger">
-        @ViewBag.Error
-    </div>
-    }
+            @if(ViewBag.Error != null)
+            {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+            }
 
-    <form asp-action="Register" method="post">
-        <!-- Họ và tên -->
-        <div class="mb-3">
-            <label for="name" class="form-label">Họ và tên:</label>
-            <input type="text" class="form-control" id="name" name="name" required />
+            <form asp-action="Register" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Họ và tên:</label>
+                    <input type="text" class="form-control" id="name" name="name" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Số điện thoại:</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu:</label>
+                    <input type="password" class="form-control" id="password" name="password" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="role" class="form-label">Chọn vai trò:</label>
+                    <select class="form-select" id="role" name="role" required>
+                        <option value="Admin">Admin</option>
+                        <option value="Faculty">Faculty</option>
+                        <option value="Student" selected>Student</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+            </form>
+
+            <div class="mt-3 text-center">
+                <p>Nếu bạn đã có tài khoản, hãy đăng nhập:</p>
+                <a href="/Login/Index" class="btn btn-secondary w-100">Đăng nhập</a>
+            </div>
         </div>
-
-        <!-- Email -->
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" required />
-        </div>
-
-        <!-- Số điện thoại -->
-        <div class="mb-3">
-            <label for="phone" class="form-label">Số điện thoại:</label>
-            <input type="tel" class="form-control" id="phone" name="phone" required />
-        </div>
-
-        <!-- Mật khẩu -->
-        <div class="mb-3">
-            <label for="password" class="form-label">Mật khẩu:</label>
-            <input type="password" class="form-control" id="password" name="password" required />
-        </div>
-
-        <!-- Chọn vai trò -->
-        <div class="mb-3">
-            <label for="role" class="form-label">Chọn vai trò:</label>
-            <select class="form-select" id="role" name="role" required>
-                <option value="Admin">Admin</option>
-                <option value="Faculty">Faculty</option>
-                <option value="Student" selected>Student</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Đăng ký</button>
-    </form>
-
-    <div class="mt-3">
-        <p>Nếu bạn đã có tài khoản, hãy đăng nhập:</p>
-        <a href="/Login/Index" class="btn btn-secondary">Đăng nhập</a>
     </div>
 </div>
+

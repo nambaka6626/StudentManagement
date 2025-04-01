@@ -3,37 +3,50 @@
 }
 
 <div class="container mt-5">
-    <h2>Dashboard</h2>
-    <p>Chào mừng, @ViewBag.UserName!</p>
-    <p>Vai trò của bạn: <strong>@ViewBag.UserRole</strong></p>
+    
+    <p class="text-center">Chào mừng, <strong>@ViewBag.UserName</strong>!</p>
+    <p class="text-center">Vai trò của bạn: <strong>@ViewBag.UserRole</strong></p>
 
     @if (ViewBag.UserRole == "Admin")
     {
-    <div>
-        <h3>Admin Panel</h3>
-        <ul>
-            <li><a href="/Admin/ManageUsers">Quản lý người dùng</a></li>
-            <li><a href="/Admin/ManageCourses">Quản lý khóa học</a></li>
-        </ul>
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h3>Admin Panel</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/Admin/ManageUsers" class="text-decoration-none">Quản lý người dùng</a></li>
+                <li class="list-group-item"><a href="/Admin/ManageCourses" class="text-decoration-none">Quản lý khóa học</a></li>
+            </ul>
+        </div>
     </div>
     }
     else if (ViewBag.UserRole == "Faculty")
     {
-    <div>
-        <h3>Faculty Panel</h3>
-        <ul>
-            <li><a href="/Faculty/GradeStudents">Chấm điểm sinh viên</a></li>
-        </ul>
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white">
+            <h3>Faculty Panel</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/Faculty/GradeStudents" class="text-decoration-none">Chấm điểm sinh viên</a></li>
+            </ul>
+        </div>
     </div>
     }
     else if (ViewBag.UserRole == "Student")
     {
-    <div>
-        <h3>Student Panel</h3>
-        <ul>
-            <li><a href="/Student/ViewCourses">Xem khóa học của bạn</a></li>
-            <li><a href="/Student/ViewResults">Xem kết quả học tập</a></li>
-        </ul>
+    <div class="card mt-4">
+        <div class="card-header bg-info text-white">
+            <h3>Student Panel</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/Student/ViewCourses" class="text-decoration-none">Xem khóa học của bạn</a></li>
+                <li class="list-group-item"><a href="/Student/ViewResults" class="text-decoration-none">Xem kết quả học tập</a></li>
+            </ul>
+        </div>
     </div>
     }
 </div>
+

@@ -1,0 +1,35 @@
+﻿@model List<StudentManagement.Models.Course>
+
+@{
+    ViewData["Title"] = "Manage Courses";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Quản lý Khóa Học</h2>
+    
+    <div class="d-flex justify-content-between mb-3">
+        <a href="@Url.Action("Create", "Admin")" class="btn btn-success">Thêm Khóa Học</a>
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Tên Khóa Học</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.CourseName</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Admin", new { id = course.Id })" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="@Url.Action("Delete", "Admin", new { id = course.Id })" class="btn btn-danger btn-sm">Xóa</a>
+                        <a href="@Url.Action("Assign", "Admin", new { id = course.Id })" class="btn btn-primary btn-sm">Gán SV</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
